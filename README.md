@@ -42,9 +42,9 @@ and set this plugin in settings.
 module.exports = {
   plugins: [
 +   require('postcss-font-face-generator')({
-      fontsDir: './public/fonts/',
-      fontPath: '/fonts/'
-    }),
++     fontsDir: './public/fonts/',
++     fontPath: '/fonts/'
++   }),
     require('autoprefixer')
   ]
 }

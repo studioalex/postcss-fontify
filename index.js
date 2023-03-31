@@ -4,6 +4,8 @@
 const path = require('path');
 const glob = require('glob');
 
+const { sortFiles } = require('./utils');
+
 module.exports = (opts = {}) => {
   const options = Object.assign({
     fontsDir: './fonts/',
@@ -66,23 +68,22 @@ module.exports = (opts = {}) => {
           if (!fontFamilies.has(fontName)) {
             fontFamilies.set(fontName, {
               fontFamily,
-              ext: [ext],
-              fontFilePath,
+              fontFile: [{ ext, fontFilePath }],
               fontWeight,
               fontStyle
             });
           } else {
             const font = fontFamilies.get(fontName);
 
-            if (!font.ext.includes(ext)) {
-              font.ext.push(ext);
+            if (!font.fontFile.some(obj => obj.ext === ext)) {
+              font.fontFile.push({ ext, fontFilePath });
             }
             fontFamilies.set(fontName, font);
           }
         });
 
         fontFamilies.forEach((fontFace) => {
-          let fontSrc = fontFace.ext.map((extension) => `url("${fontFace.fontFilePath}") format("${extension.slice(1)}")`).join(', ').toString();
+          let fontSrc = fontFace.fontFile.sort(sortFiles).map((fontFile) => `url("${fontFile.fontFilePath}") format("${fontFile.ext.slice(1)}")`).join(', ').toString();
 
           if (options.local) {
             fontSrc = `local("${fontFace.fontFamily}"), ${fontSrc}`;
