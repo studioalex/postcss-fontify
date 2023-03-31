@@ -1,6 +1,6 @@
 {
-  "name": "postcss-font-face-generator",
-  "version": "0.0.0",
+  "name": "postcss-fontify",
+  "version": "1.0.0",
   "description": "PostCSS plugin for generating font-face declarations from font files in a directory.",
   "keywords": ["postcss", "css", "postcss-plugin", "postcss-font-face-generator"],
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "author": "Alexander Sedeke <alexander.sedeke@gmail.com>",
   "license": "MIT",
-  "repository": "alexsedeke/postcss-font-face-generator",
+  "repository": "alexsedeke/postcss-fontify",
   "engines": {
     "node": ">=12.0.0"
   },
