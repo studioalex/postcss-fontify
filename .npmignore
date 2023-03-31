@@ -7,5 +7,6 @@ yarn.lock
 .travis.yml
 .github
 .editorconfig
+node_modules
 coverage/
 fonts/

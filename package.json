@@ -6,16 +6,17 @@
     "postcss",
     "css",
     "postcss-plugin",
-    "postcss-font-face-generator"
+    "fontify"
   ],
   "scripts": {
     "test": "jest --coverage && eslint ."
   },
-  "author": "Alexander Sedeke <alexander.sedeke@gmail.com>",
+  "author": "Alexander Sedeke <alexander.sedeke+github@gmail.com> (https://www.studioalex.dex/)",
+  "homepage": "https://www.studioalex.dex/",
   "license": "MIT",
-  "repository": "alexsedeke/postcss-fontify",
+  "repository": "studioalex/postcss-fontify",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   },
   "peerDependencies": {
     "postcss": "^8.3.0"
@@ -29,7 +30,7 @@
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": 2021
     },
     "env": {
       "node": true,
