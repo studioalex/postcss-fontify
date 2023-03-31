@@ -1,4 +1,4 @@
-# postcss-fontify
+# PostCSS Fontify
 
 [PostCSS](https://github.com/postcss/postcss) plugin for generating font-face declarations from font files in a directory.
 Only font files with extensions woff2, woff, ttf, and otf will be recognized and used by the plugin. Any other files with different extensions in the same directory will not be considered. Additionally, the files in the directory must be named in accordance with a specific convention.
