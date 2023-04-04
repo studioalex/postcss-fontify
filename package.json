@@ -1,6 +1,6 @@
 {
   "name": "postcss-fontify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PostCSS plugin for generating font-face declarations from font files in a directory.",
   "keywords": [
     "postcss",
@@ -12,7 +12,7 @@
     "test": "jest --coverage && eslint ."
   },
   "author": "Alexander Sedeke <alexander.sedeke+github@gmail.com> (https://www.studioalex.dex/)",
-  "homepage": "https://www.studioalex.dex/",
+  "homepage": "https://www.studioalex.dev/tips/2023-03-31-generate-font-face-declarations-with-ease/",
   "license": "MIT",
   "repository": "studioalex/postcss-fontify",
   "engines": {
@@ -52,6 +52,6 @@
     }
   },
   "dependencies": {
-    "glob": "^9.3.2"
+    "glob": "^9.3.4"
   }
 }
