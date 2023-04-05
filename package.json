@@ -1,6 +1,6 @@
 {
   "name": "postcss-fontify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "PostCSS plugin for generating font-face declarations from font files in a directory.",
   "keywords": [
     "postcss",

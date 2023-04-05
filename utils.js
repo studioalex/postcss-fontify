@@ -1,12 +1,12 @@
 const sortFiles = (a, b) => {
-  if (a.ext < b.ext) {
-    return -1;
+  const weights = { woff2: 4, woff: 3, ttf: 2, otf: 1 };
+  const weightA = weights[a.ext];
+  const weightB = weights[b.ext];
+
+  if (weightA !== weightB) {
+    return weightB - weightA;
   }
-  if (a.ext > b.ext) {
-    return 1;
-  }
-  return 0;
-}
+};
 
 module.exports = {
   sortFiles,
