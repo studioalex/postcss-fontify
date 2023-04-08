@@ -4,9 +4,9 @@
 
 ## Usage
 
-Only font files with extensions woff2, woff, ttf, and otf will be recognized and used by the plugin. Any other files with different extensions in the same directory will not be considered. Additionally, the files in the directory must be named in accordance with a specific convention.
+Only font files with extensions `woff2`, `woff`, `ttf`, and `otf` will be recognized and used by the plugin. Any other files with different extensions in the same directory will not be considered. Additionally, the files in the directory must be named in accordance with a specific convention.
 
-### Filename convetion
+### Filename convention
 
 The filename should have two parts. The first part should consist of the font name or font names written without any spaces and with the first letter of each word capitalized. The second part should be separated by a hyphen sign (-) and should contain the font weight and font style. The font style should only be included when the font is italic. The font weight can be one of the following: `Thin`, `ExtraLight`, `Light`, `Regular`, `Medium`, `SemiBold`, `Bold`, `ExtraBold` and `Black`. The two parts should be separated again by a capital letter. For example: `PragueSpecial-SemiBoldItalic.woff2.`
 
@@ -82,17 +82,17 @@ The font folder can contain multiple font files with the same name and different
 
 ## Install
 
-**Step 1:** Install plugin:
+**Step 1:** Install `postcss-fontify` plugin:
 
 ```sh
 npm install --save-dev postcss postcss-fontify
 ```
 
-**Step 2:** Check you project for existed PostCSS config: `postcss.config.js`
+**Step 2:** Check your project for existing PostCSS config: `postcss.config.js`
 in the project root, `"postcss"` section in `package.json`
 or `postcss` in bundle config.
 
-**Step 3:** Add the plugin to plugins list:
+**Step 3:** Add the plugin to plugin list:
 
 ```diff
 module.exports = {
