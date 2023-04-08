@@ -27,7 +27,7 @@ module.exports = (opts = {}) => {
   };
 
   return {
-    postcssPlugin: 'postcss-font-face-generator',
+    postcssPlugin: 'postcss-fontify',
 
     Root (root, postcss) {
         const fontsDir = options.fontsDir;
@@ -39,51 +39,60 @@ module.exports = (opts = {}) => {
 
         const fontFamilies = new Map();
 
-        fontFiles.forEach((file) => {
-          const ext = path.extname(file);
-          const fontName = path.basename(file, ext);
+        fontFiles.forEach(file => {
+          const extension = path.extname(file);
+          const fileName = path.basename(file, extension);
           const relativePath = path.relative(fontsDir, file);
-          const fontFilePath = path.join(options.fontPath, relativePath);
+          const srcPath = path.join(options.fontPath, relativePath);
 
+          let [font, style] = fileName.split('-');
+          const fontFamily = font.replace(/([a-z])([A-Z])/g, '$1 $2');
           let fontWeight = '400';
           let fontStyle = 'normal';
-          let fontFamily = fontName;
+          let srcFormat = extension;
 
-          if (fontName.includes('-')) {
-            const parts = fontName.split('-');
-            fontFamily = parts[0];
-
-            if (parts[1].includes('Italic')) {
-              fontStyle = 'italic';
-              fontWeight = parts[1].replace('Italic', '');
-            } else {
-              fontWeight = parts[1];
-            }
-
-            fontWeightMap[fontWeight] ? fontWeight = fontWeightMap[fontWeight] : fontWeight;
+          if (style && style.includes('Italic')) {
+            fontStyle = 'italic';
+            style = style.replace('Italic', '');
           }
 
-          fontFamily = fontFamily.replace(/([a-z])([A-Z])/g, '$1 $2');
+          if (style && style.includes('Var')) {
+            const [start = Number.NaN, end = Number.NaN] = style.split('Var')[1].split('_').map(x => x === '' ? Number.NaN : Number(x));
 
-          if (!fontFamilies.has(fontName)) {
-            fontFamilies.set(fontName, {
+            if (!Object.is(start, Number.NaN) && !Object.is(end, Number.NaN)) {
+              fontWeight = `${start} ${end}`;
+            }
+
+            if (!Object.is(start, Number.NaN) && Object.is(end, Number.NaN)) {
+              fontWeight = `${start}`;
+            }
+
+            srcFormat = 'woff2-variations';
+          }
+
+          if (style && fontWeightMap[style]) {
+            fontWeight = fontWeightMap[style];
+          }
+
+          if (!fontFamilies.has(fileName)) {
+            fontFamilies.set(fileName, {
               fontFamily,
-              fontFile: [{ ext, fontFilePath }],
+              fontSrc: [{ srcFormat, srcPath }],
               fontWeight,
               fontStyle
             });
           } else {
-            const font = fontFamilies.get(fontName);
+            const font = fontFamilies.get(fileName);
 
-            if (!font.fontFile.some(obj => obj.ext === ext)) {
-              font.fontFile.push({ ext, fontFilePath });
+            if (!font.fontSrc.some(obj => obj.srcFormat === srcFormat)) {
+              font.fontSrc.push({ srcFormat, srcPath });
             }
-            fontFamilies.set(fontName, font);
+            fontFamilies.set(fileName, font);
           }
         });
 
         fontFamilies.forEach((fontFace) => {
-          let fontSrc = fontFace.fontFile.sort(sortFiles).map((fontFile) => `url("${fontFile.fontFilePath}") format("${fontFile.ext.slice(1)}")`).join(', ').toString();
+          let fontSrc = fontFace.fontSrc.sort(sortFiles).map((src) => `url("${src.srcPath}") format("${src.srcFormat.slice(1)}")`).join(', ').toString();
 
           if (options.local) {
             fontSrc = `local("${fontFace.fontFamily}"), ${fontSrc}`;

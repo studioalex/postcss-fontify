@@ -6,7 +6,25 @@
 
 Only font files with extensions woff2, woff, ttf, and otf will be recognized and used by the plugin. Any other files with different extensions in the same directory will not be considered. Additionally, the files in the directory must be named in accordance with a specific convention.
 
+### Filename convetion
+
 The filename should have two parts. The first part should consist of the font name or font names written without any spaces and with the first letter of each word capitalized. The second part should be separated by a hyphen sign (-) and should contain the font weight and font style. The font style should only be included when the font is italic. The font weight can be one of the following: `Thin`, `ExtraLight`, `Light`, `Regular`, `Medium`, `SemiBold`, `Bold`, `ExtraBold` and `Black`. The two parts should be separated again by a capital letter. For example: `PragueSpecial-SemiBoldItalic.woff2.`
+
+### Variable fonts
+
+Fontify supports Variable Fonts, a new font technology that enables designers and developers to create a single font file with multiple variations of the font, including different weights, styles, and other properties. This technology allows for a more efficient and flexible way of delivering fonts to websites and other digital applications, reducing the file size and allowing for a more customized user experience.
+
+The Variable Fonts page on the Adobe Type team's official website provides a more detailed explanation and examples: [https://typekit.com/variablefonts](https://typekit.com/variablefonts).
+
+To correctly define the @font-face, Variable Fonts are only supported in the `woff2` format and require additional information about the `font-weight` range, which is expressed as number values. The name convention for Variable Fonts requires the keyword 'Var' followed by the font-weight start and end value, separated by an underscore.
+
+If you need to determine which weights your Variable Fonts support or convert Variable font `ttf` to `woff2`, here are some helpful links:
+
+- [Axis Praxis](https://www.axis-praxis.org/) A website for playing with OpenType Variable Fonts
+- [Wakamai Fondue](https://wakamaifondue.com/) A tool for revealing all font information
+- [V-Fonts](https://v-fonts.com/) A simple resource for finding and trying variable fonts
+- [Every Things Fonts](https://everythingfonts.com/ttf-to-woff2)A font converter and compression tool
+- [Woff2 Converter](https://github.com/google/woff2) A command line font compression tool from Google
 
 ## Input
 
@@ -21,6 +39,7 @@ From the font files in the specified folder:
 │   │   ├── PragueSpecial-SemiBoldItalic.ttf
 │   │   ├── PragueSpecial-SemiBold.woff2
 │   │   ├── PragueSpecial-SemiBold.woff
+│   │   ├── PragueVariable-Var100_900.woff2
 ```
 
 ## Output
@@ -46,6 +65,15 @@ The following `@font-face` declaration is created:
        url("/fonts/PragueSpecial-SemiBold.woff") format("woff");
   font-style: normal;
   font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  family-name: "Prague Variable";
+  src: local("Prague Variable"),
+       url("/fonts/PragueVariable-SemiBold.woff2") format("woff2-variations");
+  font-style: normal;
+  font-weight: 100 900;
   font-display: swap;
 }
 ```
